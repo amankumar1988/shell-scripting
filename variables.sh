@@ -12,5 +12,5 @@ echo $3
 
 echo "all passed variables are : $*"
 echo "total no of variables are : $#"
-echo $@
-echo $$
+echo $@ #print used variable
+echo $$ #process id
