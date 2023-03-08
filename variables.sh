@@ -10,5 +10,7 @@ echo $3
 
 #bash script.sh 100 200 300
 
-echo "total no of variables are : $*"
+echo "all passed variables are : $*"
 echo "total no of variables are : $#"
+echo $@
+echo $$
