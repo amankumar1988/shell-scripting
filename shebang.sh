@@ -1,2 +1,4 @@
 #!/bin/bash
-test
+date=$(date %F)
+
+echo "today date is $date"
