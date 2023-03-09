@@ -3,7 +3,7 @@
 # Types of commands:
 # Binary, Aliases, Built-in commands, Functions
 
-sample()\
+sample()
 {
     echo "test function"
 }
@@ -11,5 +11,5 @@ sample()\
 stat()
 {
     echo "Total number of sessions: $(who | wc -l)"
-    echo "Today date is $(date +%F)
+    echo "Today date is $(date +%F)"
 }
