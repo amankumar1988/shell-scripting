@@ -13,3 +13,6 @@ stat()
     echo "Total number of sessions: $(who | wc -l)"
     echo "Today date is $(date +%F)"
 }
+
+sample
+stat
