@@ -17,3 +17,5 @@ stat()
 
 echo "calling stat function"
 stat
+echo -e "###############\ncalling sample function"
+sample
