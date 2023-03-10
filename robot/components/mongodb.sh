@@ -44,16 +44,16 @@ sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
 stat $?
 
 echo -n "Performing daemon-reload :"
-systemctl daemon-reload $>> $LOGFILE
-systemctl restart mongod
-
+systemctl daemon-reload &>> $LOGFILE
+systemctl restart mongod &>> $LOGFILE
+stat $?
 echo -n "Downloading $COMPONENT schema :"
 curl -s -L -o /tmp/mongodb.zip "https://github.com/stans-robot-project/mongodb/archive/main.zip"
 stat $?
 
 echo -n "Extracting $COMPONENT schema :"
 cd /tmp
-unzip $COMPONENT.zip &>> $LOGFILE
+unzip -o $COMPONENT.zip &>> $LOGFILE
 stat $?
 
 echo -n "Injecting the schema :"
