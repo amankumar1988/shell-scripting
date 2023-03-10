@@ -10,9 +10,13 @@ if [ "$USERID" -ne 0 ];then
     exit 1
 fi
 
-
+echo -n "Installing Nginx"
 yum install nginx -y &>> "/tmp/frontend.log"
-
+if [ $? -eq 0]; then
+    echo -e "\e[32mSuccess \e[0m"
+else
+    echo -e "\e[32mFailure \e[0m"
+fi
 curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend/archive/main.zip"
 
 cd /usr/share/nginx/html
