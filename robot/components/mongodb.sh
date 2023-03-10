@@ -24,9 +24,7 @@ else
     echo -e "\e[32mFailure \e[0m"
     exit 2
 fi
-
 }
-
 
 echo -n "Downloading the mongodb component :"
 curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/stans-robot-project/mongodb/main/mongo.repo
@@ -40,27 +38,4 @@ echo -n "Start mongodb: "
 systemctl start mongod
 systemctl enable mongod
 stat $?
-
-
-
-
-
-# echo -n "Performing Cleanup of Old $COMPONENT Content :"
-# cd /usr/share/nginx/html
-# rm -rf * &>> $LOGFILE
-# stat $?
-
-# echo -n "Copying the downloaded $COMPONENT content: "
-# unzip /tmp/frontend.zip  &>> $LOGFILE
-# mv frontend-main/* .
-# mv static/* .
-# rm -rf frontend-main README.md &>> $LOGFILE
-# mv localhost.conf /etc/nginx/default.d/roboshop.conf &>> $LOGFILE
-# stat $?
-
-# echo -n "Starting the service: "
-# systemctl enable nginx
-# systemctl start nginx
-
-# stat $?
 
