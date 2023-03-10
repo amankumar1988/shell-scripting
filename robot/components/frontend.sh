@@ -5,8 +5,9 @@ set -e
 
 USERID=$(id -u)
 
-if [ "USERID" -ne 0 ];then
+if [ "$USERID" -ne 0 ];then
     echo -e "\e[32m You should execute this script as root user or with sudo as prefix \e[0m]"
+    exit 1
 fi
 
 
