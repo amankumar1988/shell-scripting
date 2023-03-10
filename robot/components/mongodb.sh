@@ -36,6 +36,10 @@ echo -n "Installing mongodb-org: "
 yum install mongodb-org -y &>> $LOGFILE
 stat $?
 
+echo -n "Start mongodb: "
+systemctl start mongod
+systemctl enable mongod
+stat $?
 
 
 
