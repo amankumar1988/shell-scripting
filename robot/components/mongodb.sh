@@ -39,3 +39,10 @@ systemctl start mongod
 systemctl enable mongod
 stat $?
 
+echo -n "Updating the $COMPONENT visibility: "
+sed -i -e "s/127.0.0.1/0.0.0.0/' /etc/mongodb.conf"
+stat $?
+
+echo -n "Performing daemon-reload :"
+systemctl daemon-reload $>> $LOGFILE
+systemctl restart mongod
