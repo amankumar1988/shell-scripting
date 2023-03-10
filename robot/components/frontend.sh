@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+COMPONENT="frontend"
 LOGFILE="/tmp/frontend"
 
 #validting user
@@ -28,17 +29,17 @@ yum install nginx -y &>> $LOGFILE
 stat $?
 
 echo -n "Downloading the Frontend component :"
-curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend/archive/main.zip"
+curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/$COMPONENT/archive/main.zip"
 
 stat $?
 
 
-echo -n "Performing Cleanup of Old Frontend Content :"
+echo -n "Performing Cleanup of Old $COMPONENT Content :"
 cd /usr/share/nginx/html
 rm -rf * &>> $LOGFILE
 stat $?
 
-echo -n "Copying the downloaded frontend content: "
+echo -n "Copying the downloaded $COMPONENT content: "
 unzip /tmp/frontend.zip  &>> $LOGFILE
 mv frontend-main/* .
 mv static/* .
