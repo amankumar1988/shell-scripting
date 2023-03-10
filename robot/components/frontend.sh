@@ -1,6 +1,15 @@
 #!/bin/bash
 
 set -e
+#validting user
+
+USERID=$(id -u)
+
+if [ "USERID" -ne 0 ];then
+    echo -e "\e[32m You should execute this script as root user or with sudo as prefix \e[0m]"
+fi
+
+
 yum install nginx -y
 
 curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend/archive/main.zip"
