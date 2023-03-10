@@ -58,7 +58,7 @@ chown -R $APPUSER:$APPUSER /home/$APPUSER/$COMPONENT
 stat $?
 
 echo -n "Installing teh $COMPONENT application: "
-cd /home/$COMPONENT/$COMPONENT
+cd /home/$APPUSER/$COMPONENT
 npm install &>> $LOGFILE
 stat $?
 
@@ -68,6 +68,7 @@ mv /home/$APPUSER/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.serv
 stat $?
 
 echo -n "Start service: "
-systemctl daemon-reload
-systemctl start catalogue
+systemctl daemon-reload &>> $LOGFILE
+systemctl restart catalogue &>> $LOGFILE
+systemctl enable catalogue&>> $LOGFILE
 stat $?
