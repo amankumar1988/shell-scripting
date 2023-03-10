@@ -1,8 +1,9 @@
 #!/bin/bash
 
 set -e
-#validting user
+LOGFILE="/tmp/frontend"
 
+#validting user
 USERID=$(id -u)
 
 if [ "$USERID" -ne 0 ];then
@@ -23,7 +24,7 @@ fi
 }
 
 echo -n "Installing Nginx: "
-yum install nginx -y &>> "/tmp/frontend.log"
+yum install nginx -y &>> $LOGFILE
 stat $?
 
 echo -n "Downloading the Frontend component :"
@@ -34,15 +35,15 @@ stat $?
 
 echo -n "Performing Cleanup of Old Frontend Content :"
 cd /usr/share/nginx/html
-rm -rf * &>> "/tmp/frontend.log"
+rm -rf * &>> $LOGFILE
 stat $?
 
 echo -n "Copying the downloaded frontend content: "
-unzip /tmp/frontend.zip  &>> "/tmp/frontend.log"
+unzip /tmp/frontend.zip  &>> $LOGFILE
 mv frontend-main/* .
 mv static/* .
-rm -rf frontend-main README.md &>> "/tmp/frontend.log"
-mv localhost.conf /etc/nginx/default.d/roboshop.conf &>> "/tmp/frontend.log"
+rm -rf frontend-main README.md &>> $LOGFILE
+mv localhost.conf /etc/nginx/default.d/roboshop.conf &>> $LOGFILE
 stat $?
 
 echo -n "Starting the service: "
