@@ -40,7 +40,7 @@ systemctl enable mongod
 stat $?
 
 echo -n "Updating the $COMPONENT visibility: "
-sed -i -e "s/127.0.0.1/0.0.0.0/' /etc/mongod.conf"
+sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
 stat $?
 
 echo -n "Performing daemon-reload :"
@@ -52,6 +52,7 @@ curl -s -L -o /tmp/mongodb.zip "https://github.com/stans-robot-project/mongodb/a
 stat $?
 
 echo -n "Extracting $COMPONENT schema :"
+cd /tmp
 unzip $COMPONENT.zip &>> $LOGFILE
 stat $?
 
