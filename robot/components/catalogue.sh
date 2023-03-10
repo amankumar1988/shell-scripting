@@ -48,6 +48,7 @@ stat $?
 
 echo -n "Extracting $COMPONENT for $APPUSER :"
 cd /home/$APPUSER
+rm -rf /home/$APPUSER/$COMPONENT
 unzip -o /tmp/$COMPONENT.zip  &>> $LOGFILE
 stat $?
 
