@@ -1,12 +1,16 @@
 #!/bin/bash
 
-echo "this is mongodb"
-
-#!/bin/bash
-
 set -e
 COMPONENT="redis"
 LOGFILE="/tmp/redis"
+
+# Validting whether the executed user is a root user or not 
+ID=$(id -u)
+
+if [ "$ID" -ne 0 ] ; then 
+    echo -e "\e[31m You should execute this script as a root user or with a sudo as prefix \e[0m" 
+    exit 1
+fi 
 
 stat()
 {
@@ -19,11 +23,11 @@ fi
 }
 
 echo -n "Configuring $COMPONENT repo: "
-curl -L https://raw.githubusercontent.com/stans-robot-project/redis/main/redis.repo -o /etc/yum.repos.d/redis.repo
+curl -L https://raw.githubusercontent.com/stans-robot-project/redis/main/redis.repo -o /etc/yum.repos.d/redis.repo &>> $LOGFILE
 stat $?
 
 echo -n "Installing $COMPONENT : "
-yum install redis-6.2.11 -y
+yum install redis-6.2.11 -y &>> $LOGFILE
 stat $? &>> $LOGFILE
 
 echo -n "Updating the $COMPONENT visibility: "
