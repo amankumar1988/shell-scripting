@@ -31,7 +31,7 @@ yum install redis-6.2.11 -y &>> $LOGFILE
 stat $? &>> $LOGFILE
 
 echo -n "Updating the $COMPONENT visibility: "
-sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/redis/.conf
+sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/redis.conf
 sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/redis/redis.conf
 stat $? 
 
