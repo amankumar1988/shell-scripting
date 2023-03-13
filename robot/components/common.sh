@@ -54,7 +54,16 @@ NPM_INSTALL(){
 }
 
 CONFIG_SV(){
-    
+        echo -n "Updating the systemd file with DB Details :"
+    sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/$APPUSER/$COMPONENT/systemd.service
+    mv /home/$APPUSER/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
+    stat $? 
+
+    echo -n "Starting the $COMPONENT service : "
+    systemctl daemon-reload &>> $LOGFILE
+    systemctl enable $COMPONENT &>> $LOGFILE
+    systemctl restart $COMPONENT &>> $LOGFILE
+    stat $?
 }
 
 
