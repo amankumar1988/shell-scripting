@@ -49,7 +49,7 @@ cd /tmp
 unzip -o /tmp/$COMPONENT.zip &>> $LOGFILE
 stat $?
 
-echo -n "Injecting the schema"
+echo -n "Injecting the schema :"
 cd $COMPONENT-main
-mysql -u root -pRoboShop@1 < shipping.sql
-stat $?
+mysql -u root -pRoboShop@1 < shipping.sql   &>> $LOGFILE
+stat $? 
