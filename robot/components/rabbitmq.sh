@@ -3,6 +3,8 @@
 COMPONENT=rabbitmq
 LOGFILE="/tmp/rabbitmq.log"
 
+source component/common.sh
+
 
 USERID=$(id -u)
 if [ "$USERID" -ne 0 ];then
