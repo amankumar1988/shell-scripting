@@ -87,9 +87,9 @@ PYTHON(){
     stat $?
 
     #Calling download and extract function
-    DOWNLOAD_AND_EXTRACT
+    DOWNLOAD_AND_EXTRACT 
 
-    
+    echo -n "Installing $COMPONENT :"
     cd /home/roboshop/$COMPONENT
     pip3 install -r requirements.txt  &>> $LOGFILE
     stat $?
