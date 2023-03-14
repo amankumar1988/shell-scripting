@@ -2,25 +2,8 @@
 
 set -e
 COMPONENT="mongodb"
-LOGFILE="/tmp/mongodb"
+source components/common.sh  
 
-#validting user
-USERID=$(id -u)
-
-if [ "$USERID" -ne 0 ];then
-    echo -e "\e[31m You should execute this script as root user or with sudo as prefix \e[0m"
-    exit 1
-fi
-
-stat()
-{
-if [ $1 -eq 0 ]; then
-    echo -e "\e[32mSuccess \e[0m"
-else
-    echo -e "\e[32mFailure \e[0m"
-    exit 2
-fi
-}
 
 echo -n "Downloading the mongodb component :"
 curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/stans-robot-project/mongodb/main/mongo.repo
@@ -31,8 +14,8 @@ yum install mongodb-org -y &>> $LOGFILE
 stat $?
 
 echo -n "Start mongodb: "
-systemctl start mongod
-systemctl enable mongod
+systemctl start mongod  &>> $LOGFILE
+systemctl enable mongod &>> $LOGFILE
 stat $?
 
 echo -n "Updating the $COMPONENT visibility: "
@@ -41,7 +24,7 @@ stat $?
 
 echo -n "Performing daemon-reload :"
 systemctl daemon-reload &>> $LOGFILE
-systemctl restart mongod &>> $LOGFILE
+systemctl restart mongod
 stat $?
 echo -n "Downloading $COMPONENT schema :"
 curl -s -L -o /tmp/mongodb.zip "https://github.com/stans-robot-project/mongodb/archive/main.zip"
