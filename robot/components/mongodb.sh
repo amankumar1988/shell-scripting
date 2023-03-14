@@ -1,9 +1,5 @@
 #!/bin/bash
 
-echo "this is mongodb"
-
-#!/bin/bash
-
 set -e
 COMPONENT="mongodb"
 LOGFILE="/tmp/mongodb"

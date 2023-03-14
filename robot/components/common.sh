@@ -1,4 +1,4 @@
-LOGFILE="/tmp/catalogue"
+LOGFILE="/tmp/$COMPONENT.log"
 APPUSER=roboshop
 #validting user
 USERID=$(id -u)
@@ -30,7 +30,7 @@ id $APPUSER
 
 DOWNLOAD_AND_EXTRACT(){
     echo -n "Downloading the $COMPONENT zip :"
-    curl -s -L -o /tmp/catalogue.zip "https://github.com/stans-robot-project/catalogue/archive/main.zip"
+    curl -s -L -o /tmp/$COMPONENT.zip "https://github.com/stans-robot-project/$COMPONENT/archive/main.zip"
     stat $?
 
     echo -n "Extracting $COMPONENT for $APPUSER :"
@@ -53,8 +53,8 @@ NPM_INSTALL(){
     stat $?
 }
 
-CONFIG_SV(){
-        echo -n "Updating the systemd file with DB Details :"
+CONFIG_SVC(){
+    echo -n "Updating the systemd file with DB Details :"
     sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' /home/$APPUSER/$COMPONENT/systemd.service
     mv /home/$APPUSER/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
     stat $? 
@@ -66,6 +66,35 @@ CONFIG_SV(){
     stat $?
 }
 
+
+
+MVN_PACKAGE(){
+    echo -n "Creating the $COMPONENT Package :"
+    cd /home/$APPUSER/$COMPONENT/
+    mvn clean package 
+    mv target/shipping-1.0.jar shipping.jar
+    stat $?
+}
+
+JAVA(){
+    echo -n "Installing Maven :"   
+    yum install maven -y &>>  $LOGFILE
+    stat $?
+    
+    echo -n "Creating user :"
+    CREATE_USER
+    stat $?
+
+    #Calling download and extract function
+    DOWNLOAD_AND_EXTRACT
+
+    #Calling Maven package function
+    MVN_PACKAGE
+
+    #Calling config svc
+    CONFIG_SVC
+
+}
 
 NODEJS(){
     echo -n "Downloading the $COMPONENT component :"
@@ -85,5 +114,7 @@ NODEJS(){
     #Calling npm install
     NPM_INSTALL
 
-}
+    #calling config-svc Function
+    CONFIG_SVC
 
+}
