@@ -33,7 +33,7 @@ fi
 
 
 echo "show plugins;" | mysql -uroot -pRoboShop@1 | grep validate_password  &>> $LOGFILE
-if [ $? -ne 0 ];then
+if [ $? -eq 0 ];then
 
 echo -n "Uninstalling Paswd validation plugin :"
 echo "uninstall plugin validate_password;" | mysql -uroot -pRoboShop@1  &>> $LOGFILE
@@ -51,5 +51,5 @@ stat $?
 
 echo -n "Injecting the schema :"
 cd $COMPONENT-main
-mysql -u root -pRoboShop@1 < shipping.sql   &>> $LOGFILE
+mysql -u root -pRoboShop@1 < shipping.sql
 stat $? 
