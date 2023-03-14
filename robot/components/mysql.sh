@@ -22,7 +22,7 @@ DEFAULT_ROOT_PWD=$(grep "temporary pass" /var/log/mysqld.log | awk '{print $NF}'
 stat $?
 
 
-echo "show databases;" | mysql -uroot -pRoboshop@1  &>> $LOGFILE
+echo "show databases;" | mysql -uroot -pRoboShop@1  &>> $LOGFILE
 if [ $? -ne 0 ];then
 
 echo -n "Password Reset of root user :"
@@ -32,11 +32,11 @@ stat $?
 fi
 
 
-echo "show plugins;" | mysql -uroot -pRoboshop@1 | grep validate_password  &>> $LOGFILE
+echo "show plugins;" | mysql -uroot -pRoboShop@1 | grep validate_password  &>> $LOGFILE
 if [ $? -ne 0 ];then
 
 echo -n "Uninstalling Paswd validation plugin :"
-echo "uninstall plugin validate_password;" | mysql -uroot -pRoboshop@1  &>> $LOGFILE
+echo "uninstall plugin validate_password;" | mysql -uroot -pRoboShop@1  &>> $LOGFILE
 
 fi
 
