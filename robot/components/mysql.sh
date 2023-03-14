@@ -17,5 +17,11 @@ systemctl enable mysqld &>> $LOGFILE
 systemctl start mysqld &>> $LOGFILE
 start $?
 
+echo -n "Grab $COMPONENT default pswd: "
+DEFAULT_ROOT_PWS=$(grep "temporary pass" /var/log/mysqld.log | awk '{print $NF}')
+stat $?
+
+
+
 
 
