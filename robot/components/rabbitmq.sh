@@ -1,6 +1,7 @@
 #!/bin/bash
 
 COMPONENT=rabbitmq
+LOGFILE="/tmp/rabbitmq.log"
 
 
 USERID=$(id -u)
