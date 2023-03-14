@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 COMPONENT=payment
-source component/common.sh
+source components/common.sh
 
 PYTHON
 
