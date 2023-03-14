@@ -1,9 +1,8 @@
 #!/bin/bash
 
 COMPONENT=rabbitmq
-LOGFILE="/tmp/rabbitmq.log"
 
-source component/common.sh
+source components/common.sh
 
 
 USERID=$(id -u)
@@ -29,19 +28,16 @@ systemctl enable rabbitmq-server   &>> $LOGFILE
 systemctl start rabbitmq-server    &>> $LOGFILE  
 stat $?
 
-echo -n "Create appuser :"
-CREATE_USER(){
-id $APPUSER
-    if [ $? -ne 0 ];then
-        echo -n "Create user :"
-        useradd $APPUSER &>> $LOGFILE
-        stat $?
-    fi
-}
 
-echo -n "add rabbitmq user :"
-rabbitmqctl add_user roboshop roboshop123
-rabbitmqctl set_user_tags roboshop administrator
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+rabbitmqctl list_users | grep $APPUSER  &>> $LOGFILE
+if [ $1 -ne 0 ];then
 
+    echo -n "Creating $COMPONENT Application user :"
+    rabbitmqctl add_user roboshop roboshop123   &>> $LOGFILE
+    stat $?
+fi
+
+echo -n "Adding privilges to $COMPONENT user :"
+rabbitmqctl set_user_tags roboshop administrator  &>> $LOGFILE
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $LOGFILE
 stat $?
