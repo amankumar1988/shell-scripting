@@ -1,4 +1,6 @@
 #!/bin/bash 
 
-echo "I am payment"
+COMPONENT=payment
+source component/common.sh
+PYTHON
 
