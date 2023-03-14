@@ -13,15 +13,17 @@ yum install mysql-community-server -y &>> $LOGFILE
 stat $?
 
 echo -n "Starting $COMPONENT :"
-systemctl enable mysqld &>> $LOGFILE
-systemctl start mysqld &>> $LOGFILE
-start $?
-
-echo -n "Grab $COMPONENT default pswd: "
-DEFAULT_ROOT_PWS=$(grep "temporary pass" /var/log/mysqld.log | awk '{print $NF}')
+systemctl enable mysqld  &>> $LOGFILE  
+systemctl start mysqld   &>> $LOGFILE  
 stat $?
 
+echo -n "Grab $COMPONENT default pswd: "
+DEFAULT_ROOT_PWD=$(grep "temporary pass" /var/log/mysqld.log | awk '{print $NF}')
+stat $?
 
+echo -n "Password reset of root user :"
+echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';" | mysql --connect-expired-password -uroot -p${DEFAULT_ROOT_PWD} &>> $LOGFILE 
+stat $?
 
 
 
