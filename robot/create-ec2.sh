@@ -24,5 +24,5 @@ IPADDRESS=$(aws ec2 run-instances \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$COMPONENT}]" | jq '.Instances[].PrivateIpAddress' | sed -e 's)
 
 
-sed -e "s/COMPONENT/${COMPONENT}" -e "/IPADDRESS/${IPADDRESS}" route53.jsob > /tmp/r53.json
+sed -e "s/COMPONENT/${COMPONENT}" -e "/IPADDRESS/${IPADDRESS}" ronbot/record.json > /tmp/r53.json
 aws route53 change-resource-record-sets --host-zone-id $HOSTEDZONEID --change-batch file://r53.json
