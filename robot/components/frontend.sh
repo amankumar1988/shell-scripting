@@ -49,12 +49,12 @@ stat $?
 
 for component in catalogue cart user shipping payment;do
     echo -n "Updating the proxy details in the reverse proxy file :"
-    sed -i :/$component/s/localhost/$component.roboshop.internal/" /etc/nginx/roboshop.conf
+    sed -i /$component/s/localhost/$component.roboshop.internal/" /etc/nginx/roboshop.conf
 done
 
 
 echo -n "Starting the service: "
 systemctl enable nginx
 systemctl start nginx
-
 stat $?
+
