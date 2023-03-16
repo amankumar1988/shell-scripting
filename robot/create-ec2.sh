@@ -21,7 +21,7 @@ IPADDRESS=$(aws ec2 run-instances \
     --instance-type t2.micro \
     --security-group-ids ${SGID} \
     --instance-market-options "MarketType=spot, SpotOptions={SpotInstanceType=persistent, InstanceInterruptionBehavior=stop}" \
-    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$COMPONENT}]" | jq '.Instances[].PrivateIpAddress' | sed -e 's)
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$COMPONENT}]" | jq '.Instances[].PrivateIpAddress' | sed -e 's/"//g')
 
 
 sed -e "s/COMPONENT/${COMPONENT}" -e "/IPADDRESS/${IPADDRESS}" ronbot/record.json > /tmp/r53.json
