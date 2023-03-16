@@ -47,6 +47,12 @@ rm -rf frontend-main README.md &>> $LOGFILE
 mv localhost.conf /etc/nginx/default.d/roboshop.conf &>> $LOGFILE
 stat $?
 
+for component in catalogue cart user shipping payment;do
+    echo -n "Updating the proxy details in the reverse proxy file :"
+    sed -i :/$component/s/localhost/$component.roboshop.internal/" /etc/nginx/roboshop.conf
+done
+
+
 echo -n "Starting the service: "
 systemctl enable nginx
 systemctl start nginx
