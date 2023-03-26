@@ -40,5 +40,5 @@ if [ "$1" == "all" ] ; then
         create_server
     done
 else 
-        exit 1
+        create_server
 fi 
