@@ -28,7 +28,7 @@ create_server() {
                     --instance-market-options "MarketType=spot, SpotOptions={SpotInstanceType=persistent,InstanceInterruptionBehavior=stop}" \
                     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$COMPONENT-$ENV}]" | jq '.Instances[].PrivateIpAddress' | sed -e 's/"//g')
 
-    sed -e "s/COMPONENT/${COMPONENT}-{ENV}/" -e  "s/IPADDRESS/${IPADDRESS}/" robot/record.json > /tmp/record.json
+    sed -e "s/COMPONENT/${COMPONENT}-${ENV}/" -e  "s/IPADDRESS/${IPADDRESS}/" robot/record.json > /tmp/record.json
     aws route53 change-resource-record-sets --hosted-zone-id $HOSTEDZONEID --change-batch file:///tmp/record.json | jq
 
     echo "*** $COMPONENT Server Completed ***"
